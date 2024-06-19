@@ -8,9 +8,9 @@ const Input = ({ type = "text", inputName, register = () => {}, error }) => {
         className="form-control"
         id={inputName}
       />
-      {error[inputName] && (
+      {/* {error[inputName] && (
         <div className="invalid-feedback">{error[inputName]?.message}</div>
-      )}
+      )} */}
     </>
   );
 };

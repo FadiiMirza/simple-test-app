@@ -1,19 +1,12 @@
-import PropTypes from "prop-types";
-
-const Button = ({ buttonText, handleClick }) => {
+const Button = ({ buttonText, width }) => {
   return (
     <button
-      className="btn btn-primary text-capitalize"
+      className={`btn btn-primary text-capitalize ${width}`}
       type="submit"
-      onClick={(event) => handleClick(event)}
     >
       {buttonText}
     </button>
   );
-};
-
-Button.propTypes = {
-  handleClick: PropTypes.func,
 };
 
 export default Button;

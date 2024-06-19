@@ -9,10 +9,11 @@ import CheckboxInput from "./common/checkboxInput";
 import Input from "./common/input";
 import Label from "./common/label";
 import Logo from "./common/logo";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../utils/validationSchema";
+import axios from "axios";
 
 const LoginForm = () => {
   const form = useForm({
@@ -20,14 +21,31 @@ const LoginForm = () => {
     mode: "onSubmit",
   });
 
-  const {
-    register,
-    handleSubmit,
-    setError,
-    // formState = { errors, isValid },
-  } = form;
+  const { register, handleSubmit, setError, formState = { errors } } = form;
 
-  const handleFormSubmit = () => {};
+  const navigate = useNavigate();
+
+  const handleFormSubmit = async () => {
+    const obj = { email: "admin@gmail.com", password: "testing@321" };
+    try {
+      const response = await axios.post(
+        "https://himelbikon.pythonanywhere.com/api/v1/users/token/",
+        obj
+      );
+      console.log(response);
+      // const result = response.data;
+      navigate("/profile");
+      localStorage.setItem(response);
+    } catch (ex) {
+      // const serverError = { ...errors };
+      // if (obj.email == "") {
+      //   setError("username", {
+      //     type: "manual",
+      //     message: serverError.username,
+      //   });
+      // }
+    }
+  };
 
   return (
     <main>
@@ -91,7 +109,7 @@ const LoginForm = () => {
                       </div>
 
                       <div className="col-12">
-                        <Button buttonText="login" />
+                        <Button buttonText="login" width="w-100" />
                       </div>
 
                       <div className="col-12">
